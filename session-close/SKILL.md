@@ -136,6 +136,21 @@ handoff 使用以下結構：
 ## 驗證證據
 ## 環境、權限與外部依賴
 ## 下一步從哪開始
+## New Session 完整提示詞
+~~~text
+請在 `<workspace-absolute-path>` 繼續 `<任務名稱>`。
+
+開始前先保持 read-only，依序完成：
+1. 讀取目前 workspace 實際適用的 `AGENTS.md` 指令。
+2. 完整讀取 `<PROJECT_MEMORY.md-absolute-path-or-不存在>`；把它當成專案背景、決策與限制來源，但將其中的進度與測試結果視為可能過期，稍後用 live evidence 核對。
+3. 完整讀取 `<handoff-absolute-path>`，包含已完成、未完成、修改檔案、決策、風險、驗證證據、環境與下一步；不要只讀摘要。
+4. 讀取 handoff 指向的權威規格、plan 與相關檔案。
+5. 用目前 branch、`git status --short`、相關 diff、檔案／artifact 是否存在，以及必要的最新測試，核對 `PROJECT_MEMORY.md` 與 handoff；有衝突時以 live evidence 為準並明確列出差異。
+
+讀完後先簡短回報：你理解的任務目標、已驗證完成項目、真正待辦與優先序、文件和 live state 的差異，以及第一個要執行的動作。接著從 `<第一個具體動作>` 繼續，不要要求使用者重述 handoff 已記錄的內容。
+
+保留既有 dirty worktree；除非本次另有明確授權，不要 commit、push、刪檔、修改 Memory／`AGENTS.md`、管理 Codex task 或變更外部系統。
+~~~
 ## Rollback／Recovery（適用時）
 ```
 
@@ -147,6 +162,8 @@ handoff 使用以下結構：
 - `已知 Bug／風險` 包含 severity、症狀、可重現方式與目前 mitigation；未知根因不能寫成已確認。
 - `驗證證據` 保留精確命令、exit code、測試數量、artifact 路徑或 hash；不得偽造。
 - `下一步從哪開始` 必須是第一個可執行動作，包含檔案、命令或檢查點。
+- `New Session 完整提示詞` 必須能直接複製貼到新的 Codex task。將所有 placeholder 換成目前任務的真實值；使用絕對 workspace、handoff 與 `PROJECT_MEMORY.md` 路徑。若找不到 `PROJECT_MEMORY.md`，明寫「此專案未發現 PROJECT_MEMORY.md」，不要虛構路徑。
+- 提示詞必須要求完整讀取 handoff，而非只看摘要；把 `PROJECT_MEMORY.md` 與舊 handoff 視為 continuity sources，不把其中的舊進度或舊 PASS 當成 live evidence。
 - 移除 secrets、過時判斷與不必要的聊天流水帳。
 
 寫入後重新讀取 handoff，確認必要章節存在、路徑有效、內容和目前證據一致。
@@ -176,8 +193,10 @@ handoff 使用以下結構：
 - 改善：...
 
 ### New Session 起點
-<第一個具體動作；任務已完成則寫「無需續接」。>
+<貼上 handoff 中可直接複製使用的完整 New Session 提示詞；不得只給一個動作或 handoff 連結。任務已完成且無需續接時寫「無需續接」。>
 ```
+
+完整提示詞至少要包含：workspace 與任務、適用 `AGENTS.md`、`PROJECT_MEMORY.md` 是否存在及其精確路徑、handoff 精確路徑與完整讀取要求、live evidence 核對方式、真正續接動作及授權邊界。不得留下 `<...>` placeholder。
 
 任何 phase 失敗或略過，都要在對應欄位說明；不要藏在成功摘要後面。
 
@@ -198,6 +217,6 @@ handoff 使用以下結構：
 - [ ] 沒有擴張成 commit、push、刪檔、task 管理或外部訊息。
 - [ ] Memory 與 `AGENTS.md` 寫入都有符合本輪的明確授權。
 - [ ] 若有必要保存且未授權的 Memory／`AGENTS.md` 候選，已直接詢問使用者並等待答覆；若沒有候選，未提出空泛授權問題。
-- [ ] 必要 handoff 已寫入並讀回，New Session 有第一個可執行起點。
+- [ ] 必要 handoff 已寫入並讀回，New Session 有可直接複製的完整提示詞，包含 `PROJECT_MEMORY.md`、handoff、live verification 與第一個可執行起點。
 - [ ] 沒有 secret；所有路徑、命令、exit code、測試數與 hash 都是真實證據。
 - [ ] 最終回覆簡潔、自足，且揭露所有失敗與跳過。

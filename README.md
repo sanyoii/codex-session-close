@@ -1,6 +1,6 @@
 # Codex Session Close Skill
 
-一個 **Only for Codex** 的收工與交接 Skill。它會在工作結束、context 需要切換，或 New Session 接手前，重新核對證據、區分完成／未完成／未驗證狀態，並在必要時留下可執行的 handoff。
+一個 **Only for Codex** 的收工與交接 Skill。它會在工作結束、context 需要切換，或 New Session 接手前，重新核對證據、區分完成／未完成／未驗證狀態，並在必要時留下可執行的 handoff 與可直接貼到新 task 的完整提示詞。
 
 ## 用途與邊界
 

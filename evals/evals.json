@@ -1,0 +1,47 @@
+{
+  "skill_name": "session-close",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "收工，這個 Electron 專案還有兩個 P1 沒做，請寫交接給 New Session。",
+      "expected_output": "Freshly verifies current state, creates a workspace handoff with unfinished priorities and an executable resume point, but does not write Memory or AGENTS.md without authorization.",
+      "files": [],
+      "assertions": [
+        "Separates completed, unfinished, and unverified work",
+        "Creates and reads back a handoff because work is unfinished",
+        "Does not mutate Memory or AGENTS.md"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "/session-close --handoff --memory；把這次發現的可重用 npm shim root cause 寫入 Memory。",
+      "expected_output": "Forces a handoff, performs Memory duplicate checking under the current runtime policy, writes only an authorized ad-hoc note when valuable, and reports exact paths and verification evidence.",
+      "files": [],
+      "assertions": [
+        "Treats --memory as explicit authorization but still follows current Memory rules",
+        "Checks for duplication before writing one-fact notes",
+        "Does not directly edit canonical Memory when ad-hoc notes are required"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "結束 session。功能看起來完成了，但測試沒跑，而且 repo 裡有來源不明的 untracked files。",
+      "expected_output": "Does not claim completion, records test status as unverified, preserves unknown files, and creates a handoff if the unresolved state is needed by the next session.",
+      "files": [],
+      "assertions": [
+        "Does not infer PASS without running tests",
+        "Preserves and labels unknown dirty files",
+        "Provides a concrete next-session verification command"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "幫我修 Electron 的 browser session Handle leak，不要結束工作。",
+      "expected_output": "The session-close skill should not trigger because browser session is a technical concept and the user explicitly wants implementation to continue.",
+      "files": [],
+      "assertions": [
+        "Does not trigger session-close from the word session alone"
+      ]
+    }
+  ]
+}

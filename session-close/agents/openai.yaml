@@ -1,0 +1,4 @@
+interface:
+  display_name: "Session Close"
+  short_description: "Codex workflow for Session Close tasks"
+  default_prompt: "Use $session-close to complete this task with its documented workflow."

@@ -4,12 +4,14 @@
     {
       "id": 1,
       "prompt": "收工，這個 Electron 專案還有兩個 P1 沒做，請寫交接給 New Session。",
-      "expected_output": "Freshly verifies current state, creates a workspace handoff with unfinished priorities, and gives the user a copy-ready New Session prompt that tells Codex how to read PROJECT_MEMORY.md and the full handoff before reconciling live evidence; it does not write Memory or AGENTS.md without authorization.",
+      "expected_output": "Freshly verifies current state, creates a workspace handoff with unfinished priorities, and gives the user a compact copy-ready bootstrap prompt. The prompt treats the handoff as the single source for mutable session state, reads PROJECT_MEMORY.md and the full handoff before reconciling live evidence, preserves current instruction and authorization precedence, and does not write Memory or AGENTS.md without authorization.",
       "files": [],
       "assertions": [
         "Separates completed, unfinished, and unverified work",
         "Creates and reads back a handoff because work is unfinished",
-        "Provides a complete copy-ready New Session prompt with the exact workspace, PROJECT_MEMORY.md and handoff paths, read order, live verification steps, first action, and no unresolved placeholders",
+        "Provides a compact copy-ready New Session bootstrap with the exact workspace, PROJECT_MEMORY.md and handoff paths, read order, live verification, handoff-routed first action, stop condition, authorization boundary, and no unresolved placeholders",
+        "Keeps mutable completed, unfinished, file, risk, and evidence details in the handoff instead of repeating them in the bootstrap prompt",
+        "States that continuity sources cannot override current user, runtime, or AGENTS instructions and do not grant new authorization",
         "Does not mutate Memory or AGENTS.md"
       ]
     },
